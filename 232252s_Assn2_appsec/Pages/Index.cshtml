@@ -1,0 +1,23 @@
+﻿@page
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h2>Welcome, @HttpContextAccessor.HttpContext.Session.GetString("FirstName") @HttpContextAccessor.HttpContext.Session.GetString("LastName")!</h2>
+
+    <p><strong>Email:</strong> @HttpContextAccessor.HttpContext.Session.GetString("Email")</p>
+    <p><strong>Mobile:</strong> @HttpContextAccessor.HttpContext.Session.GetString("Mobile")</p>
+    <p><strong>Billing Address:</strong> @HttpContextAccessor.HttpContext.Session.GetString("BillingAddress")</p>
+    <p><strong>Shipping Address:</strong> @HttpContextAccessor.HttpContext.Session.GetString("ShippingAddress")</p>
+
+    @if (!string.IsNullOrEmpty(HttpContextAccessor.HttpContext.Session.GetString("Photo")))
+    {
+        <p><strong>Profile Photo:</strong></p>
+        <img src="@HttpContextAccessor.HttpContext.Session.GetString("Photo")" alt="Profile Photo" width="150" height="150" />
+    }
+
+    <p><a class="btn btn-primary" asp-page="/ChangePassword">Update password</a></p>
+</div>
